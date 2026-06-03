@@ -1,0 +1,64 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+button {
+  width: 300px;
+  height: 100px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  backdrop-filter: blur(10px);
+}
+
+button:hover {
+  transform: translateY(-5px) scale(1.03);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+button.encendido {
+  background: linear-gradient(135deg, #00f5d4, #00bbf9, #00b4d8);
+
+  box-shadow:
+    0 10px 25px rgba(0, 245, 212, 0.107),
+    0 0 30px rgba(0, 187, 249, 0.4);
+}
+button.apagado {
+  background: linear-gradient(135deg, #ff4d6d, #e5383b, #ba181b);
+
+  box-shadow:
+    0 10px 25px rgba(255, 77, 110, 0.125),
+    0 0 30px rgba(229, 56, 59, 0.4);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  button {
+    width: 90%;
+    max-width: 320px;
+    height: 80px;
+    font-size: 1.1rem;
+    border-radius: 16px;
+  }
+}
