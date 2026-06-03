@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import mqttClient from "./services/mqtt";
 import "./App.css";
+import { useState } from "react";
 
 export default function App() {
+  const [prendido, setPrendido] = useState(false);
   useEffect(() => {
     mqttClient.on("connect", () => {
       console.log("MQTT conectado");
@@ -19,12 +21,29 @@ export default function App() {
     mqttClient.publish("led/control", value);
   };
 
+  const handleClick = () => {
+    setPrendido(!prendido);
+  };
+
   return (
     <div className="container">
-      <button onClick={() => send("1")} className="encendido">
+      <div className={`foco ${prendido ? "prendido" : ""}`}></div>
+      <button
+        onClick={() => {
+          send("1");
+          handleClick();
+        }}
+        className="encendido"
+      >
         ON
       </button>
-      <button onClick={() => send("0")} className="apagado">
+      <button
+        onClick={() => {
+          send("0");
+          handleClick();
+        }}
+        className="apagado"
+      >
         OFF
       </button>
     </div>
