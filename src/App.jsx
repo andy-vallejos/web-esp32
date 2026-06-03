@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import mqttClient from "./services/mqtt";
-import "./app.css";
+import "./App.css";
 
 export default function App() {
   useEffect(() => {
