@@ -1,95 +1,183 @@
+/* --- Contenedor General --- */
 .container {
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a1a1a;
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-.foco {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #666, #222);
+/* --- Paleta de Colores Dinámicos (Variables) --- */
+.termometro-container.frio {
+  --color-termometro: #00d2ff; /* Color Hielo */
+}
+.termometro-container.ambiente {
+  --color-termometro: #4edf6e; /* Verde Ambiente */
+}
+.termometro-container.caliente {
+  --color-termometro: #ff4141; /* Rojo Caliente */
+}
+.termometro-container.desconectado {
+  --color-termometro: #777777; /* Gris por defecto */
+}
+
+/* --- Estructura del Termómetro --- */
+.termometro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  background: #2a2a2a;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.termometro-tubo {
+  width: 24px;
+  height: 150px;
+  background-color: #111;
+  border-radius: 12px 12px 0 0;
   position: relative;
-  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.6);
-  transition: all 0.3s ease;
+  border: 3px solid #444;
+  border-bottom: none;
+  overflow: hidden;
 }
 
-/* parte metálica base */
-.foco::after {
-  content: "";
+.termometro-liquido {
+  width: 100%;
+  height: 70%; /* Puedes volver este porcentaje dinámico si gustas */
+  background-color: var(--color-termometro);
   position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 6px;
-  background: linear-gradient(#999, #444);
-  border-radius: 2px;
+  bottom: 0;
+  border-radius: 12px 12px 0 0;
+  transition: background-color 0.5s ease;
 }
 
-.prendido {
-  background: radial-gradient(circle at 30% 30%, #fff7b0, #ffb300);
-  box-shadow:
-    0 0 10px rgba(255, 200, 0, 0.8),
-    0 0 25px rgba(255, 180, 0, 0.6),
-    0 0 40px rgba(255, 150, 0, 0.4);
+.termometro-bulbo {
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-termometro);
+  border-radius: 50%;
+  border: 3px solid #444;
+  margin-top: -5px; /* Une el bulbo con el tubo */
+  z-index: 1;
+  transition: background-color 0.5s ease;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.pantalla-temperatura h1 {
+  font-size: 2.5rem;
+  margin-top: 15px;
+  margin-bottom: 0;
+  color: var(--color-termometro);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: color 0.5s ease;
+}
+
+/* --- Tu interfaz previa estilizada (Foco y Botones) --- */
+.foco {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #444;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.foco.prendido {
+  background-color: #ffeb3b;
+  box-shadow: 0 0 20px #ffeb3b;
+}
+
+.botones-control {
+  display: flex;
+  gap: 15px;
 }
 
 button {
-  width: 300px;
-  height: 100px;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  font-size: 1.3rem;
+  padding: 12px 25px;
+  font-size: 1rem;
   font-weight: bold;
-  letter-spacing: 1px;
-
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-
-  transition: all 0.3s ease;
-
-  backdrop-filter: blur(10px);
-}
-
-button:hover {
-  transform: translateY(-5px) scale(1.03);
+  transition:
+    transform 0.1s ease,
+    opacity 0.2s ease;
 }
 
 button:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
 
-button.encendido {
-  background: linear-gradient(135deg, #00f5d4, #00bbf9, #00b4d8);
-
-  box-shadow:
-    0 10px 25px rgba(0, 245, 212, 0.107),
-    0 0 30px rgba(0, 187, 249, 0.4);
-}
-button.apagado {
-  background: linear-gradient(135deg, #ff4d6d, #e5383b, #ba181b);
-
-  box-shadow:
-    0 10px 25px rgba(255, 77, 110, 0.125),
-    0 0 30px rgba(229, 56, 59, 0.4);
+.encendido {
+  background-color: #2e7d32;
+  color: white;
 }
 
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px;
+.apagado {
+  background-color: #c62828;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* --- Contenedor para alinear Termómetro y Alerta lado a lado --- */
+.interfaz-termometro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Espacio entre el termómetro y el cartel de alerta */
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.termometro-container {
+  margin-bottom: 0px !important;
+}
+
+.badge-alerta {
+  padding: 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 250px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  animation: parpadeo 1.5s infinite alternate;
+}
+
+.badge-alerta p {
+  margin: 0;
+}
+
+.alerta-frio {
+  background-color: rgba(0, 210, 255, 0.15);
+  border: 2px solid #00d2ff;
+  color: #00d2ff;
+}
+
+.alerta-calor {
+  background-color: rgba(255, 65, 65, 0.15);
+  border: 2px solid #ff4141;
+  color: #ff4141;
+}
+
+@keyframes parpadeo {
+  from {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
-
-  button {
-    width: 90%;
-    max-width: 320px;
-    height: 80px;
-    font-size: 1.1rem;
-    border-radius: 16px;
+  to {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
   }
 }

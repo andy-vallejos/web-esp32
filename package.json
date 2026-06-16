@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "telegram": "node bot/alert.js"
   },
   "dependencies": {
     "mqtt": "^5.15.1",
+    "node-telegram-bot-api": "^1.1.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
