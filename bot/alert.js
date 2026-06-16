@@ -1,8 +1,10 @@
 import mqtt from "mqtt";
 import TelegramBot from "node-telegram-bot-api";
+import dotenv from "dotenv";
+dotenv.config();
 
-const TOKEN = "8888500971:AAHCNVsbw5hBcFTRld-thRYuRsUuLik4Awo";
-const CHAT_ID = "8191019043";
+const TOKEN = process.env.TELEGRAM_TOKEN;
+const CHAT_ID = process.env.CHAT_ID;
 
 const bot = new TelegramBot(TOKEN);
 
